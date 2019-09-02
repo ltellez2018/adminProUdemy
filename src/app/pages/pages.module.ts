@@ -3,8 +3,10 @@ import { FormsModule } from '@angular/forms';
 
 // RUTAS
 import { PAGES_ROUTES } from './pages.routes';
+
 // MODULOS PERSONALIZADOS
 import { SharedModule } from '../shared/shared.module';
+
 // COMPONENTES
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -13,8 +15,11 @@ import { PagesComponent } from './pages.component';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 // ng2 - Charts
 import { ChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -25,7 +30,9 @@ import { ChartsModule } from 'ng2-charts';
     Graficas1Component,
     IncrementadorComponent,
     GraficoDonaComponent,
-    AccountSettingsComponent],
+    AccountSettingsComponent,
+    PromesasComponent,
+    RxjsComponent],
   imports: [
     SharedModule,
     FormsModule,
