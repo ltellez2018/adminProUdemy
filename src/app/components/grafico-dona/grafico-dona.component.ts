@@ -11,7 +11,7 @@ export class GraficoDonaComponent implements OnInit {
 
   @Input() doughnutChartLabels: Label[] = [];
   @Input() doughnutChartData: MultiDataSet = [];
-  @Input() doughnutChartType: ChartType = 'Type';
+  @Input() doughnutChartType: ChartType = 'doughnut';
 
   constructor() { }
 

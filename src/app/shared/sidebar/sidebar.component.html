@@ -15,7 +15,7 @@
                         <li><a href="javascript:void()">Inbox</a></li>
                         <li><a [routerLink]="['/account-settings']" routerLinkActive="active"> Account Setting</a></li>
                         <li>
-                            <a [routerLink]="['/login']" routerLinkActive="router-link-active">Logout</a></li>
+                            <a a class="pointer" (click)="usuarioService.logout()">Logout</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider "></li>
