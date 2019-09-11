@@ -16,7 +16,12 @@ import { IncrementadorComponent } from '../components/incrementador/incrementado
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CommonModule } from '@angular/common';
+//
 import { RxjsComponent } from './rxjs/rxjs.component';
+// Pipes
+import { PipesModule } from '../pipes/pipes.module';
 // ng2 - Charts
 import { ChartsModule } from 'ng2-charts';
 
@@ -32,12 +37,15 @@ import { ChartsModule } from 'ng2-charts';
     GraficoDonaComponent,
     AccountSettingsComponent,
     PromesasComponent,
-    RxjsComponent],
+    RxjsComponent,
+    ProfileComponent],
   imports: [
+    CommonModule,
     SharedModule,
     FormsModule,
     ChartsModule,
-    PAGES_ROUTES
+    PAGES_ROUTES,
+    PipesModule
   ],
   exports: [
     DashboardComponent,

@@ -15,14 +15,13 @@ import { RegisterComponent } from './login/register.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
-    
-
-  ],
+    RegisterComponent 
+   ],
   imports: [
     BrowserModule,
     PageModule,
