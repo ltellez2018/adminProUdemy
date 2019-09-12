@@ -54,4 +54,6 @@ export class ProfileComponent implements OnInit {
     this.usuarioService.camiarImagen(this.imagenSubir, this.usuario._id);
   }
 
+
+
 }

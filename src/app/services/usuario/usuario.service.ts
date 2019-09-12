@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+
+
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
@@ -107,8 +109,11 @@ export class UsuarioService {
     const URL = URL_SERVICIOS + '/usuario/' +  usuario._id + '?token=' + this.token;
     return  this.http.put(URL, usuario)
      .pipe(map((resp: any) => {
-            const usuarioDb = resp.usuario;
-            this.gurdarStorage(usuarioDb._id, this.token, usuarioDb);
+
+            if(usuario._id === this.usuario._id ) {
+              const usuarioDb = resp.usuario;
+              this.gurdarStorage(usuarioDb._id, this.token, usuarioDb);
+            }
             Swal.fire('Usuario actualizado', usuario.nombre, 'success');
             return true;
      }));
@@ -127,4 +132,22 @@ export class UsuarioService {
           
        });
    }
+
+   cargarUsuarios( desde: number = 0) {
+    const URL = URL_SERVICIOS + '/usuario?desde= ' +  desde;
+    return this.http.get(URL);
+   }
+
+   buscarUsuarios(termino: string) {
+    const URL = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' +  termino;
+    return this.http.get(URL)
+    .pipe(map((resp: any) => resp.usuarios));
+   }
+
+   borrarUsuario(id: string){
+    const URL = URL_SERVICIOS + '/usuario/' +  id + '?token=' +this.token;
+    return this.http.delete(URL);
+    //.pipe(map((resp: any) => resp.usuarios));
+   }
+
 }
