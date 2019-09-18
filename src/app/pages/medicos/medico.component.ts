@@ -14,8 +14,8 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
 })
 export class MedicoComponent implements OnInit {
   hospitales: Hospital [] = [];
-  medico: Medico = new Medico('', '', '', '', '');
-  hospital: Hospital = new Hospital('');
+  medico: Medico = new Medico(null, null, null, null, null);
+  hospital: Hospital = new Hospital(null, null, null);
 
   constructor(public medicoService: MedicoService,
               public hospitalService: HospitalService,

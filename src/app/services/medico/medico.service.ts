@@ -51,7 +51,6 @@ export class MedicoService {
 
   guardarMedico(medico: Medico ) {
     let URL = URL_SERVICIOS + '/medico/';
-    medico.img = '';
     
     if ( medico._id ) { 
       // * Updating 

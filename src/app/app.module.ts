@@ -6,13 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { APP_ROUTES } from './app.routes';
 
 //  *MODULOS
-import { PageModule } from './pages/pages.module';
+import { SharedModule } from './shared/shared.module';
+
 
 //  *COMPONENTES
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PagesComponent } from './pages/pages.component';
 
 
 
@@ -21,15 +23,16 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagesComponent
    ],
   imports: [
     BrowserModule,
-    PageModule,
+    APP_ROUTES,
     FormsModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
     HttpClientModule,
-    APP_ROUTES
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
