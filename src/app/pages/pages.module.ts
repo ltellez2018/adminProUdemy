@@ -17,7 +17,11 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
 
 import { CommonModule } from '@angular/common';
 //
@@ -26,8 +30,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PipesModule } from '../pipes/pipes.module';
 // ng2 - Charts
 import { ChartsModule } from 'ng2-charts';
-import { UsuariosComponent } from './usuarios/usuarios.component';
-import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+
+
 
 
 
@@ -44,7 +49,11 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
     RxjsComponent,
     ProfileComponent,
     UsuariosComponent,
-    ModalUploadComponent],
+    ModalUploadComponent,
+    HospitalesComponent,
+    MedicosComponent,
+    MedicoComponent,
+    BusquedaComponent],
   imports: [
     CommonModule,
     SharedModule,

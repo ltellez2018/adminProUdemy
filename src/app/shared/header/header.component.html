@@ -43,8 +43,8 @@
                 <!-- Search -->
                 <!-- ============================================================== -->
                 <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                    <form class="app-search">
-                        <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                    <div class="app-search">
+                        <input #input (keyup.enter)="buscar( input.value)" type="text" class="form-control" placeholder="Buscar y enter"> <a class="srh-btn"><i class="ti-close"></i></a> </div>
                 </li>
                 <!-- ============================================================== -->
                 <!-- Messages -->
@@ -111,7 +111,7 @@
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img [src]="usuario.img | imagen" alt="user"></div>
+                                    <div class="u-img"><img [src]="usuario.img | imagen" alt="user" class="rounded"></div>
                                     <div class="u-text">
                                         <h4> {{usuario.nombre}}</h4>
                                         <p class="text-muted">{{usuario.email}}</p><a [routerLink]="['/profile']" class="btn btn-rounded btn-danger btn-sm">Ver Perfil</a></div>

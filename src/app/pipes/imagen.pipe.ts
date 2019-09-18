@@ -11,12 +11,12 @@ export class ImagenPipe implements PipeTransform {
     
     
 
-    // * Google image
+   /*  // * Google image
     if(img.indexOf('https') >= 0) {
       return img;
-    }
+    } */
     // * With image
-    if(!img){
+    if(!img) {
       return url + '/usuarios/xxx';
     }
 
@@ -29,7 +29,7 @@ export class ImagenPipe implements PipeTransform {
           break;
        case 'hospital':
           url  += '/hospitales/' + img;
-          break;    
+          break;
        default:
          console.log('Tipo de imagen no existe , usuario,medico, hospitales');
          url += '/usuarios/xxx';

@@ -1,0 +1,63 @@
+<div class="row animated fadeIn">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" (keyup)="buscarHospital(input.value)" class="form-control" placeholder="Buscar hospital" #input>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md_12 text-right">
+                <button (click)="crearHospital()" class="btn btn-primary">
+                  <i class="fa fa-plus"></i>
+                   Crear hospital
+                </button>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">Hospitales registrados (<small>{{totalRegistros}}</small>) </h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitales">
+                            <th class="w70">
+                                <img (click)="mostrarModal(hospital._id)" [src]="hospital.img | imagen:'hospital'" alt="imagen" class="img-40 rounded pointer">
+                            </th>
+
+                            <th>
+                                <input class="form-control" [(ngModel)]="hospital.nombre" name="nombre" type="text" placeholder="Nombre del hospital">
+                            </th>
+
+                            <th>
+                                <button (click)="guardarHospital(hospital)" class="btn btn-primary">
+                              			<i class="fa fa-save"></i>
+																</button>
+
+                                <button (click)="borrarHospital(hospital)" class="btn btn-danger">
+                                		<i class="fa fa-trash-o"></i>
+                              	</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                Anteriores
+              </button>
+                <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                  Siguiente
+                </button>
+            </div>
+        </div>
+    </div>

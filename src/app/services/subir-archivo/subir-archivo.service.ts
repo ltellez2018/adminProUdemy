@@ -10,26 +10,29 @@ export class SubirArchivoService {
 
 
   subirArchivo(archivo: File, tipo: string , id: string) {
+    console.log( "file: " , archivo);
+    console.log( "tipo: " , tipo);
+    console.log( "id: " , id);
 
     return new Promise (( resolve, reject ) => {
-      let  formData = new FormData();
-      let xhr = new XMLHttpRequest();
+      const  formData = new FormData();
+      const xhr = new XMLHttpRequest();
       formData.append('imagen', archivo, archivo.name );
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange =  () => {
         if ( xhr.readyState === 4) {
           if ( xhr.status === 200 ) {
             console.log('Imagen subida');
             resolve(JSON.parse(xhr.response));
           } else {
-              console.log('Fallo la subida');
-              reject(xhr.response);              
+              console.log('Fallo la subida', xhr.response);
+              reject(xhr.response);
           }
         }
         
       };
 
       const URL = URL_SERVICIOS + `/upload/${tipo}/${id}`;
-      console.log(URL);
+      console.log( { URL });
       
       xhr.open('PUT', URL , true);
       xhr.send(formData);

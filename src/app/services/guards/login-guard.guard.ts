@@ -9,7 +9,7 @@ import { UsuarioService } from '../usuario/usuario.service';
 export class LoginGuardGuard implements CanActivate {
 
   constructor(public usuarioService: UsuarioService,
-    public router : Router){
+              public router: Router) {
 
   }
 

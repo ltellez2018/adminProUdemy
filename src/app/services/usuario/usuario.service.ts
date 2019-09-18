@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError  } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 
@@ -17,7 +17,7 @@ export class UsuarioService {
 
   usuario: Usuario;
   token: string;
-
+  menu: any [] = [];
   constructor(public http: HttpClient, 
               public router: Router,
               public subirArchivo: SubirArchivoService) {
@@ -34,20 +34,22 @@ export class UsuarioService {
       if (localStorage.getItem('token')) {
         this.token = localStorage.getItem('token');
         this.usuario = JSON.parse(localStorage.getItem('usuario'));
+        this.menu = JSON.parse(localStorage.getItem('menu'));
       } else {
         this.token = '';
         this.usuario = null;
+        this.menu = null;
       }
-
-
     }
 
-   gurdarStorage(id: string , token: string, usuario: Usuario) {
+   gurdarStorage(id: string , token: string, usuario: Usuario, menu: any) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('menu', JSON.stringify(menu));
     this.usuario = usuario;
     this.token = token;
+    this.menu = menu;
 
    }
 
@@ -55,8 +57,10 @@ export class UsuarioService {
      console.log('logout ...');
      this.usuario = null;
      this.token = '';
+     this.menu = [];
      localStorage.removeItem('token');
      localStorage.removeItem('usuario');
+     localStorage.removeItem('menu');
      this.router.navigate(['/login']);
 
 
@@ -70,10 +74,14 @@ export class UsuarioService {
 
     return this.http.post(url, null, { headers })
                 .pipe(map ((res: any) => {
-                    this.gurdarStorage( res.id, res.token, res.usuario);
+                    this.gurdarStorage( res.id, res.token, res.usuario, res.menu);
                     return true;
                 }));
   }
+
+  // * * * * * * * * * * * * * * * * * * * * * * * //
+  // *           L O G I N                       * //
+  // * * * * * * * * * * * * * * * * * * * * * * * //
 
   login(usuario: Usuario, recordar: boolean = false) {
     if ( recordar ) {
@@ -84,39 +92,63 @@ export class UsuarioService {
 
     const URL = URL_SERVICIOS + '/login';
     return this.http.post(URL, usuario)
-            .pipe(map( (res: any) => {
-               this.gurdarStorage( res.id, res.token, res.usuario);
-             /*    localStorage.setItem('id', resp.id);
-                localStorage.setItem('token', resp.token);
-                localStorage.setItem('usuario', JSON.stringify(resp.usuario)); */
+            .pipe(
+              map( (res: any) => {
+               this.gurdarStorage( res.id, res.token, res.usuario, res.menu);
                return true;
-            }));
-
+              }),
+              catchError( (error: any) => {
+                console.log( error.status );
+                Swal.fire('Error login', error.error.mensaje, 'error');
+                throw error;
+              })
+            );
   }
 
+  // * * * * * * * * * * * * * * * * * * * * * * * //
+  // *          C R E A T E   U S E R            * //
+  // * * * * * * * * * * * * * * * * * * * * * * * //
    crearUsuario(usuario: Usuario) {
      const URL = URL_SERVICIOS + '/usuario';
      // ! Rergesa un observador
      return  this.http.post(URL, usuario)
-     .pipe(map((resp: any) => {
+     .pipe(
+         map((resp: any) => {
             Swal.fire('Usuario creado', usuario.email, 'success');
             return resp.usuario;
-     }));
+         }),
+         catchError( (err: any) => {
+          console.log( err );
+          Swal.fire(err.error.mensaje, err.error.errors.message, 'error');
+          throw err;
+        })
+    );
 
    }
 
+  // * * * * * * * * * * * * * * * * * * * * * * * //
+  // *          U P D A T E   U S E R            * //
+  // * * * * * * * * * * * * * * * * * * * * * * * //
    actualizarUsuario(usuario: Usuario) {
     const URL = URL_SERVICIOS + '/usuario/' +  usuario._id + '?token=' + this.token;
     return  this.http.put(URL, usuario)
-     .pipe(map((resp: any) => {
+     .pipe(
+       map((resp: any) => {
 
             if(usuario._id === this.usuario._id ) {
               const usuarioDb = resp.usuario;
-              this.gurdarStorage(usuarioDb._id, this.token, usuarioDb);
+              this.gurdarStorage(usuarioDb._id, this.token, usuarioDb, this.menu);
             }
             Swal.fire('Usuario actualizado', usuario.nombre, 'success');
             return true;
-     }));
+     }),
+     catchError( (err: any) => {
+      console.log( err );
+      Swal.fire(err.error.mensaje, err.error.errors.message, 'error');
+      throw err;
+    })
+     
+     );
    }
 
    camiarImagen(file: File, id: string) {
@@ -124,7 +156,7 @@ export class UsuarioService {
        .then( (resp: any) => {
          console.log( resp );
          this.usuario.img = resp.usuario.img;
-         this.gurdarStorage(id, this.token, this.usuario);
+         this.gurdarStorage(id, this.token, this.usuario,this.menu);
          Swal.fire('Imagen actualizado', this.usuario.nombre, 'success');
        })
        .catch( resp => {

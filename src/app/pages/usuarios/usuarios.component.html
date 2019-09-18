@@ -40,7 +40,7 @@
                     <tbody>
                         <tr *ngFor="let usuario of usuarios">
                             <th class="w70">
-                                <img (click)="mostrarModal(usuario._id)" [src]="usuario.img | imagen" alt="imagen" class="img-40 img-circle pointer">
+                                <img (click)="mostrarModal(usuario._id)" [src]="usuario.img | imagen" alt="imagen" class="img-40 rounded pointer">
                             </th>
                             <th>{{usuario.email}}</th>
                             <th>{{usuario.nombre}}</th>
@@ -51,25 +51,25 @@
                                 </select>
                             </th>
                             <th>
-                                <label *ngIf="usuario.google" class="label label-danger">Google</label>
-                                <label *ngIf="!usuario.google" class="label label-primary">Normal</label>
+                                <label *ngIf="usuario.google" class="label label-warning">Google</label>
+                                <label *ngIf="!usuario.google" class="label label-success">Normal</label>
 
                             </th>
                             <th>
-                                <button (click)="guardarUsuario(usuario)" class="btn btn-primary">
+                                <button (click)="guardarUsuario(usuario)" class="btn btn-primary btn-rounded">
                                 <i class="fa fa-save"></i>
                               </button>
-                                <button (click)="borrarUsuario(usuario)" class="btn btn-danger">
+                                <button (click)="borrarUsuario(usuario)" class="btn btn-danger btn-rounded">
                                   <i class="fa fa-trash-o"></i>
                                 </button>
                             </th>
                         </tr>
                     </tbody>
                 </table>
-                <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                <button (click)="cambiarDesde(-5)" class="btn btn-secondary btn-rounded">
                   Anteriores
                 </button>
-                <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                <button (click)="cambiarDesde(5)" class="btn btn-secondary btn-rounded">
                     Siguiente
                   </button>
 

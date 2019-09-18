@@ -12,7 +12,7 @@
 
                     <img *ngIf="!imagenTemp" class="w150" [src]=" 'xxx' | imagen" alt="Imagen usuario">
                     <img *ngIf="imagenTemp" class="w150" [src]="imagenTemp" alt="Imagen usuario">
-                    <input (change)="seleccionImagen($event.target.files[0])" type="file">
+                    <input #inputFile (change)="seleccionImagen($event.target.files[0])" type="file">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
